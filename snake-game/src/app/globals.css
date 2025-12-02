@@ -1,0 +1,408 @@
+@import "tailwindcss";
+
+/* ==========================================
+   Game Boy Color Palette
+   ========================================== */
+:root {
+  /* Game Boy Green Palette */
+  --gb-darkest: #0f380f;
+  --gb-dark: #306230;
+  --gb-light: #8bac0f;
+  --gb-lightest: #9bbc0f;
+  
+  /* Semantic aliases */
+  --color-primary: var(--gb-darkest);
+  --color-secondary: var(--gb-dark);
+  --color-accent: var(--gb-light);
+  --color-background: var(--gb-lightest);
+  
+  /* High contrast mode (overridden via JS) */
+  --hc-foreground: #000000;
+  --hc-background: #ffffff;
+  
+  /* Spacing */
+  --game-border-width: 4px;
+  --game-border-radius: 8px;
+}
+
+/* ==========================================
+   Tailwind Theme Integration
+   ========================================== */
+@theme inline {
+  --color-gb-darkest: var(--gb-darkest);
+  --color-gb-dark: var(--gb-dark);
+  --color-gb-light: var(--gb-light);
+  --color-gb-lightest: var(--gb-lightest);
+  
+  --font-pixel: "Press Start 2P", monospace;
+  --font-sans: "VT323", system-ui, sans-serif;
+}
+
+/* ==========================================
+   Base Styles
+   ========================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-background);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================
+   Game Boy Frame Styling
+   ========================================== */
+.game-frame {
+  background: linear-gradient(145deg, #8b8b8b 0%, #6b6b6b 50%, #4a4a4a 100%);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 
+    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.game-screen {
+  background: var(--color-background);
+  border: var(--game-border-width) solid var(--color-primary);
+  border-radius: var(--game-border-radius);
+  box-shadow: 
+    inset 0 0 20px rgba(15, 56, 15, 0.3),
+    0 0 0 2px var(--gb-dark);
+}
+
+/* ==========================================
+   Typography
+   ========================================== */
+.font-pixel {
+  font-family: "Press Start 2P", monospace;
+  letter-spacing: 0.05em;
+}
+
+.font-retro {
+  font-family: "VT323", monospace;
+  letter-spacing: 0.02em;
+}
+
+h1, h2, h3 {
+  font-family: "Press Start 2P", monospace;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* ==========================================
+   Button Styles
+   ========================================== */
+.btn {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.75rem;
+  padding: 12px 24px;
+  border: 3px solid var(--color-primary);
+  background: var(--color-accent);
+  color: var(--color-primary);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.1s ease;
+  position: relative;
+  box-shadow: 
+    4px 4px 0 var(--color-primary),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn:hover {
+  background: var(--color-background);
+  transform: translate(2px, 2px);
+  box-shadow: 
+    2px 2px 0 var(--color-primary),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 
+    0 0 0 var(--color-primary),
+    inset 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: var(--color-background);
+}
+
+.btn-small {
+  font-size: 0.625rem;
+  padding: 8px 16px;
+}
+
+/* ==========================================
+   Input Styles
+   ========================================== */
+.input {
+  font-family: "VT323", monospace;
+  font-size: 1.25rem;
+  padding: 12px 16px;
+  border: 3px solid var(--color-primary);
+  background: var(--color-background);
+  color: var(--color-primary);
+  outline: none;
+  box-shadow: 
+    inset 2px 2px 0 var(--color-dark),
+    inset -2px -2px 0 var(--color-accent);
+}
+
+.input:focus {
+  box-shadow: 
+    inset 2px 2px 0 var(--color-dark),
+    inset -2px -2px 0 var(--color-accent),
+    0 0 0 2px var(--color-accent);
+}
+
+.input::placeholder {
+  color: var(--color-secondary);
+  opacity: 0.7;
+}
+
+/* ==========================================
+   Card / Panel Styles
+   ========================================== */
+.card {
+  background: var(--color-background);
+  border: 3px solid var(--color-primary);
+  padding: 20px;
+  box-shadow: 4px 4px 0 var(--color-primary);
+}
+
+.card-header {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.875rem;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--color-secondary);
+  text-transform: uppercase;
+}
+
+/* ==========================================
+   Leaderboard Table
+   ========================================== */
+.leaderboard-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: "VT323", monospace;
+  font-size: 1.125rem;
+}
+
+.leaderboard-table th {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.625rem;
+  text-align: left;
+  padding: 8px 12px;
+  background: var(--color-secondary);
+  color: var(--color-background);
+  text-transform: uppercase;
+}
+
+.leaderboard-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-secondary);
+}
+
+.leaderboard-table tr:nth-child(even) td {
+  background: rgba(139, 172, 15, 0.2);
+}
+
+.leaderboard-table tr:hover td {
+  background: rgba(139, 172, 15, 0.4);
+}
+
+/* ==========================================
+   Screen Transitions
+   ========================================== */
+.screen-enter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.screen-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+.screen-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.screen-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 150ms ease-in, transform 150ms ease-in;
+}
+
+/* ==========================================
+   Animations
+   ========================================== */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(-10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+/* ==========================================
+   Utility Classes
+   ========================================== */
+.text-shadow-gb {
+  text-shadow: 2px 2px 0 var(--color-secondary);
+}
+
+.border-gb {
+  border: 3px solid var(--color-primary);
+}
+
+.shadow-gb {
+  box-shadow: 4px 4px 0 var(--color-primary);
+}
+
+/* ==========================================
+   High Contrast Mode
+   ========================================== */
+.high-contrast {
+  --color-primary: var(--hc-foreground);
+  --color-secondary: var(--hc-foreground);
+  --color-accent: var(--hc-foreground);
+  --color-background: var(--hc-background);
+}
+
+.high-contrast .game-screen {
+  background: var(--hc-background);
+  border-color: var(--hc-foreground);
+}
+
+.high-contrast .btn {
+  background: var(--hc-background);
+  border-color: var(--hc-foreground);
+  color: var(--hc-foreground);
+  box-shadow: 4px 4px 0 var(--hc-foreground);
+}
+
+.high-contrast .input {
+  background: var(--hc-background);
+  border-color: var(--hc-foreground);
+  color: var(--hc-foreground);
+}
+
+/* ==========================================
+   Game Canvas Container
+   ========================================== */
+.game-canvas-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-background);
+}
+
+.game-canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ==========================================
+   Loading States
+   ========================================== */
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+/* ==========================================
+   Scrollbar Styling
+   ========================================== */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+  border: 2px solid var(--color-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border: 2px solid var(--color-background);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ==========================================
+   Focus Visible (Accessibility)
+   ========================================== */
+:focus-visible {
+  outline: 3px dashed var(--color-primary);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px dashed var(--color-primary);
+  outline-offset: 2px;
+}
